@@ -1,0 +1,63 @@
+
+
+html body {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+
+}
+
+
+@media all and (orientation:portrait) {
+     html {
+        font-size: 2.5vw;
+     }
+    }
+    
+    @media all and (orientation:landscape) {
+        html {
+            font-size: 2.5vh;
+         }
+    }
+
+.game-body {
+    position: absolute;
+    font-size: inherit;
+    display: flex;
+    width: calc( 32em + 1px);
+    height: calc( 32em  + 1px);
+    position: absolute;
+    left: 50dvw;
+    top: 50dvh;
+    translate: -50% -50%;
+    flex-wrap: wrap;
+}
+
+.game-body * {
+    font-size: inherit;
+}
+
+
+.grid3x3 {
+    height: calc( 32em / 3);
+    width: calc( 32em / 3);
+    display: flex;
+}
+
+.tic-tac-toe {
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.tic-tac-toe p {
+    height: 1em;
+    text-align: center;
+    font-size: 6em;
+    width: 100%;
+}
+
+
