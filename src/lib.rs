@@ -89,6 +89,10 @@ pub fn make_move(action: String, game_id: String, action_number: i32) {
         'T' => "tic_tac_toe",
         _ => "error",
     };
+    
+    #[cfg(target_arch = "wasm32")]
+    wasm_cookies::set(&game_id.clone(), &*&GAME_STATE.lock().unwrap().to_string(), &CookieOptions::default().expires_after(Duration::from_secs(6048000)));
+
 
     let params = format!("?id={game_id}&a={action}&num={action_number}");
     window().unwrap().location().set_href(&format!("https://ollielynas.github.io/gpr/close.html{params}&name={name}&w={winner}")).unwrap();
