@@ -88,7 +88,6 @@ pub fn make_move(action: String, game_id: String, action_number: i32) {
     };
 
     let params = format!("?id={game_id}&a={action}&num={action_number}");
-    let new_url = format!("https://ollielynas.github.io/gpr/html/{name}.html?{params}");
     window().unwrap().location().set_href(&format!("https://ollielynas.github.io/gpr/close.html{params}&name={name}")).unwrap();
 
 }

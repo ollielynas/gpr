@@ -21,7 +21,7 @@
         let action = `${params.get("a")}`; // is the number 18
         let move_number = `${params.get("num")}`; // is the number 18
         let name = `${params.get("name")}`; // is the number 18
-        let link = `https://ollielynas.github.io/gpr/html/${name}.html?id=${id}&a=${action}&num=${move_number}`
+        let link = `https://ollielynas.github.io/gpr/games/${name}.html?id=${id}&a=${action}&num=${move_number}`
     try {
       await navigator.clipboard.writeText(link);
       console.log('Content copied to clipboard');
