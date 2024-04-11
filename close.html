@@ -37,6 +37,7 @@
       console.log('Content copied to clipboard');
       document.querySelector("h3").innerHTML = "successfully copied new link to clipboard!";
       window.close();
+      window.open('','_self').close();
     } catch (err) {
       console.error('Failed to copy: ', err);
       document.querySelector("h3").innerHTML = "failed to copy new link to clipboard!"

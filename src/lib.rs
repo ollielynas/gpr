@@ -5,7 +5,7 @@ use game::Game;
 use wasm_bindgen::prelude::*;
 use wasm_cookies::CookieOptions;
 use fastrand;
-use web_sys::window;
+use web_sys::{js_sys::Math::random, window};
 
 mod game;
 mod tic_tac_toe;
@@ -23,10 +23,12 @@ fn main() -> Result<(), JsValue> {
 
 #[wasm_bindgen]
 pub fn accept_move(action: String, mut game_id: String, action_number: String) {
-
-    if game_id == "RANDOM" {
+    fastrand::seed((random()*1000.0) as u64);
+    if game_id.contains("RANDOM") {
         game_id = fastrand::choose_multiple("qwertyuiopasdfghjklzxcvbnmqwertyuiopasdfghjklzxcvbnm".chars(), 5).iter().map(|x| x).collect::<String>();
     }
+
+
 
 
     let action_number = match action_number.parse::<i32>() {
@@ -90,6 +92,6 @@ pub fn make_move(action: String, game_id: String, action_number: i32) {
 
     let params = format!("?id={game_id}&a={action}&num={action_number}");
     window().unwrap().location().set_href(&format!("https://ollielynas.github.io/gpr/close.html{params}&name={name}&w={winner}")).unwrap();
-
+    // window().op
 }
 
