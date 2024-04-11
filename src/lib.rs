@@ -22,7 +22,7 @@ fn main() -> Result<(), JsValue> {
 }
 
 #[wasm_bindgen]
-pub fn accept_move(mut action: String, mut game_id: String, action_number: String) {
+pub fn accept_move(action: String, mut game_id: String, action_number: String) {
 
     if game_id == "RANDOM" {
         game_id = fastrand::choose_multiple("qwertyuiopasdfghjklzxcvbnmqwertyuiopasdfghjklzxcvbnm".chars(), 5).iter().map(|x| x).collect::<String>();
