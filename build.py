@@ -24,7 +24,7 @@ for i in games:
         my_file.write(html)
 
     if i != "error":
-        game_links += f"<a href='https://ollielynas.github.io/gpr/games/{i}.html?'><img src='https://ollielynas.github.io/gpr/img/{i}.png' alt='start game of {games[i][1]}'></img></a>"
+        game_links += f"<a href='https://ollielynas.github.io/gpr/games/{i}.html?id=RANDOM&a={games[i][0]}&num=-1'><img src='https://ollielynas.github.io/gpr/img/{i}.png' alt='start game of {games[i][1]}'></img></a>"
 
 index = ""
 with open("index.html", "r") as my_file:
