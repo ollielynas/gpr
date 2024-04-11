@@ -23,8 +23,8 @@
     <meta property="twitter:url" content="https://ollielynas.github.io/md-website/THIS_URL" /> -->
 
     <meta property="og:image:type" content="image/png" />
-    <meta property="og:image:width" content="1000" />
-    <meta property="og:image:height" content="600" />
+    <meta property="og:image:width" content="100" />
+    <meta property="og:image:height" content="100" />
     
     <!-- <meta property="og:image:alt" content="Screenshot of META_DESCRIPTION" />
     <meta property="twitter:image:alt" content="Screenshot of META_DESCRIPTION" /> -->
@@ -33,10 +33,14 @@
 
 </head>
 <body>
+    loading...
     <script>
         const queryString = window.location.search;
         // Simulate an HTTP redirect:
+        setTimeout(function(){
+    //do what you need here
         window.location.replace("https://ollielynas.github.io/gpr/game.html"+queryString);
+    }, 200);
     </script>
 </body>
 </html>
