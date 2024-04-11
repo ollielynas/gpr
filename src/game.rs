@@ -1,4 +1,6 @@
-use std::{default, fmt::Error};
+use std::{default, fmt::Error, usize};
+
+use web_sys::window;
 
 use crate::tic_tac_toe::TicTacToeState;
 
@@ -30,21 +32,27 @@ impl Game {
 
 
     /// this is run after processing the move made my your opponent
-    pub fn get_html(&self)  -> String {
+    pub fn get_html(&self, id: String, move_num: i32)  -> String {
         match self {
             Game::Error(e) =>format!("<p>error</p><p>{e}</p>"),
             Game::StaticError => "StaticError, game state was never loaded".to_owned(),
             Game::TicTacToe { rows, current_player } => {
                 format!("{}",
-                rows.to_vec().iter().map(|x| match x {
-                    TicTacToeState::O => {"<div class='grid3x3 tic-tac-toe'><p>O</p></div>"}
-                    TicTacToeState::X => {"<div class='grid3x3 tic-tac-toe'><p>X</p></div>"}
-                    TicTacToeState::Blank => {"<button class='grid3x3 tic-tac-toe'></button>"}
-                }.to_owned()).collect::<String>()+&current_player.to_char().to_string()
+                rows.to_vec().iter().enumerate().map(|x| match x {
+                    (9..=usize::MAX, _) => String::new(),
+                    (_ , TicTacToeState::O) => "<div class='grid3x3 tic-tac-toe'><p>O</p></div>".to_owned(),
+                    (_ , TicTacToeState::X) => "<div class='grid3x3 tic-tac-toe'><p>X</p></div>".to_owned(),
+                    (i , TicTacToeState::Blank) => {
+                        let onclick = format!("make_move('T{}', '{}', '{}')", i, id, move_num + 1);
+                        format!("<button class='grid3x3 tic-tac-toe' onclick = \"{onclick}\"></button>")
+                    }
+                }).collect::<String>() + "<div class='inner-outline'>"
             )
             },
         }
     }
+
+    
 
 
     /// this is used to set the value of the global mut using the cookie data
@@ -93,18 +101,42 @@ impl Game {
     }
 
     /// this is what the url parameters are passed into 
-    pub fn accept_move(&mut self, mut action: String) {
+    pub fn accept_move(&mut self, mut action: String, action_number: i32, id: String) {
         let first = action.remove(0);
 
+        if action == "" {
+            return;
+        }
 
         match self {
             Game::Error(ref mut a) => {*a = action},
             Game::StaticError => {},
             Game::TicTacToe {ref mut rows, ref mut current_player } => {
                 let index = action.parse::<usize>().expect("i really need to make this into an error game");
-                rows[index] = *current_player;
+                *current_player = match action_number%2 {
+                    0 => TicTacToeState::O,
+                    1 => TicTacToeState::X,
+                    _ => unreachable!("wtf math has ceased to function")
+                };
+
+                if rows[index] == TicTacToeState::Blank {
+                    rows[index] = *current_player;
+                }
+                
+
+                *current_player = match action_number%2 {
+                    0 => TicTacToeState::O,
+                    1 => TicTacToeState::X,
+                    _ => unreachable!("wtf math has ceased to function")
+                };
+
             },
         }
+
+
+        let game_body = window().unwrap().document().unwrap().get_element_by_id("game-body").unwrap();
+        game_body.set_inner_html(&self.get_html(id, action_number));
+
     }
 
     /// this is what is saved as a cookie and then loaded when receiving a move
@@ -124,6 +156,7 @@ impl Game {
     /// t is also assumed that they did not start the game
     pub fn new_from_action(mut action: String) -> Game {
         let c = action.remove(0);
+        
         match c {
             'T' => {
                 const ARRAY_REPEAT_VALUE: TicTacToeState = TicTacToeState::Blank;

@@ -40,6 +40,26 @@ html body {
 }
 
 
+.game-body[game-type="T"] button {
+    background-color: transparent;
+    border: rgba(0, 0, 0, 0) 1px solid;
+}
+
+.game-body[game-type="T"] .grid3x3 {
+    outline: rgb(43, 43, 43) 1px solid;
+}
+
+.inner-outline {
+    border: white 3px solid;
+    position: absolute;
+    left: -1px;
+    right: -1px;
+    top: -1px;
+    bottom: -1px;
+    z-index: 10;
+    pointer-events: none;
+}
+
 .grid3x3 {
     height: calc( 32em / 3);
     width: calc( 32em / 3);
@@ -59,5 +79,7 @@ html body {
     font-size: 6em;
     width: 100%;
 }
+
+
 
 

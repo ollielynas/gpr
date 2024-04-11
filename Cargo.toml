@@ -10,6 +10,7 @@ crate-type = ["cdylib"]
 
 [dependencies]
 console_error_panic_hook = "0.1.7"
+fastrand = "2.0.2"
 wasm-bindgen = "0.2.92"
 wasm-cookies = {version = "0.2.1"}
 
@@ -22,4 +23,5 @@ features = [
   'HtmlDocument',
   'Node',
   'Window',
+  'Location',
 ]

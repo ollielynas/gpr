@@ -56,10 +56,16 @@
 
         await init();
 
+        let params = new URL(document.location).searchParams;
 
+        let id = `${params.get("id")}`; // is the string "Jonathan Smith".
+        let action = `${params.get("a")}`; // is the number 18
+        let move_number = `${params.get("num")}`; // is the number 18
+
+        console.log(id, action, move_number);
 
         // And afterwards we can use all the functionality defined in wasm.
-        accept_move("T1", "T0");
+        accept_move(action, id, move_number);
 
         window.make_move = make_move;
 
