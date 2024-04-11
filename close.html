@@ -21,7 +21,17 @@
         let action = `${params.get("a")}`; // is the number 18
         let move_number = `${params.get("num")}`; // is the number 18
         let name = `${params.get("name")}`; // is the number 18
+        let winner = `${params.get("w")}`; // is the number 18
+
         let link = `https://ollielynas.github.io/gpr/games/${name}.html?id=${id}&a=${action}&num=${move_number}`
+
+        if (winner == "1") {
+            link = "https://ollielynas.github.io/gpr/p1w.html"
+        }
+        if (winner == "2") {
+            link = "https://ollielynas.github.io/gpr/p2w.html"
+        }
+
     try {
       await navigator.clipboard.writeText(link);
       console.log('Content copied to clipboard');

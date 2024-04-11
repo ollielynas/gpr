@@ -79,6 +79,8 @@ pub fn make_move(action: String, game_id: String, action_number: i32) {
     (*GAME_STATE.lock().unwrap()).accept_move(action.clone(), action_number, game_id.clone());
 
 
+    let winner = (*GAME_STATE.lock().unwrap()).winner();
+
     // must match dict in game.py
 
     let name = match game_type {
@@ -87,7 +89,7 @@ pub fn make_move(action: String, game_id: String, action_number: i32) {
     };
 
     let params = format!("?id={game_id}&a={action}&num={action_number}");
-    window().unwrap().location().set_href(&format!("https://ollielynas.github.io/gpr/close.html{params}&name={name}")).unwrap();
+    window().unwrap().location().set_href(&format!("https://ollielynas.github.io/gpr/close.html{params}&name={name}&w={winner}")).unwrap();
 
 }
 

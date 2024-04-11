@@ -30,6 +30,24 @@ impl Default for Game {
 
 impl Game {
 
+    pub fn winner(&self) -> i32 {
+        return match self {
+            Game::Error(_) => 0,
+            Game::StaticError => 0,
+            Game::TicTacToe { rows, current_player } => {
+                let wins = vec![[0,1,2],[3,4,5],[6,7,8], [0,3,6], [1,4,7], [2,5,8], [0,4,8],[2,4,6]];
+                for w in wins {
+                    if [rows[w[0]],rows[w[1]],rows[w[2]]] == [TicTacToeState::O, TicTacToeState::O, TicTacToeState::O] {
+                        return 1
+                    }
+                    if [rows[w[0]],rows[w[1]],rows[w[2]]] == [TicTacToeState::X, TicTacToeState::X, TicTacToeState::X] {
+                        return 2
+                    }
+                }
+                return 0;
+            },
+        }
+    }
 
     /// this is run after processing the move made my your opponent
     pub fn get_html(&self, id: String, move_num: i32)  -> String {
